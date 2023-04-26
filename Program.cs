@@ -18,8 +18,8 @@ builder.Services.AddDbContext<ToDoDbContext>();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
 app.UseCors("AddPolicy");
-if(app.Environment.IsDevelopment())
-{
+// if(app.Environment.IsDevelopment())
+// {
     app.UseSwagger(options =>
 {
     options.SerializeAsV2 = true;
@@ -29,7 +29,7 @@ if(app.Environment.IsDevelopment())
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
     options.RoutePrefix = string.Empty;
 });
-}
+// }
 
 
 // app.MapGet("/", () => "Hello World!");
@@ -62,4 +62,5 @@ app.MapDelete("/items/{id}", async (int id, ToDoDbContext db) =>
     }
     return Results.NotFound();
 });
+app.MapGet("/items",()=>"ToDoList API is running");
 app.Run();
