@@ -32,7 +32,7 @@ app.UseCors("AddPolicy");
 // }
 
 
-// app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Hello World!");
 app.MapGet("/items", async (ToDoDbContext db) =>
       await db.Items.ToListAsync());
 app.MapPost("/items", async (ToDoDbContext db,[FromBody]ItemModel item) =>
