@@ -27,7 +27,7 @@ public partial class ToDoDbContext : DbContext
         // For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
 
         // Replace the connection string below with the Clever Cloud MySQL database connection string provided for your database
-        optionsBuilder.UseMySql("name=ToDoDB", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.32-mysql"));
+        optionsBuilder.UseMySql("server=bf5smc2n3kcst6cvpmna-mysql.services.clever-cloud.com;user=ugzaveinomeenqcu;password=ARy2v5X8JepflMRpGR9a;database=bf5smc2n3kcst6cvpmna", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.32-mysql"));
         // "ToDoDB":"server=localhost;user=root;password=1234;database=ToDoDB"
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -31,7 +31,7 @@ app.UseCors("AddPolicy");
 });
 // }
 
-
+// app.MapGet("/items",()=>"ToDoList API is running");
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/items", async (ToDoDbContext db) =>
       await db.Items.ToListAsync());
@@ -62,5 +62,4 @@ app.MapDelete("/items/{id}", async (int id, ToDoDbContext db) =>
     }
     return Results.NotFound();
 });
-app.MapGet("/items",()=>"ToDoList API is running");
 app.Run();
