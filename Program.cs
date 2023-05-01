@@ -4,17 +4,31 @@ using ToDoApi;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("OpenPolicy",
-                      policy =>
-                      {
-                          policy.WithOrigins("https://todolistserver-t59d.onrender.com/index.html")
-                                .AllowAnyHeader()
-                                .AllowAnyMethod()
-                                .AllowCredentials(); // Added AllowCredentials
-                      });
+    options.AddPolicy(name:MyAllowSpecificOrigins, 
+        builder =>
+    {
+        builder.WithOrigins("https://todolistserver-t59d.onrender.com/index.html")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .SetIsOriginAllowedToAllowWildcardSubdomains();
+    });
 });
+
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("OpenPolicy",
+//                       policy =>
+//                       {
+//                           policy.WithOrigins("https://todolistserver-t59d.onrender.com/index.html")
+//                                 .AllowAnyHeader()
+//                                 .AllowAnyMethod()
+//                                 .AllowCredentials(); // Added AllowCredentials
+//                       });
+// });
 // builder.Services.AddCors(options =>
 // {
 //     options.AddPolicy("AddPolicy",
@@ -28,7 +42,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<ToDoDbContext>();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-app.UseCors("OpenPolicy");
+app.UseCors(MyAllowSpecificOrigins);
 // if(app.Environment.IsDevelopment())
 // {
     app.UseSwagger(options =>
