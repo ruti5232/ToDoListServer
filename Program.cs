@@ -11,11 +11,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name:MyAllowSpecificOrigins, 
         builder =>
     {
-        builder.WithOrigins("https://todolistclient-d7ck.onrender.com")
+        builder.WithOrigins("https://todolistclient-d7ck.onrender.com","https://todolistserver-t59d.onrender.com/index.html")
         .AllowAnyMethod()
         .AllowAnyHeader()
-         .AllowCredentials();
-        // .SetIsOriginAllowedToAllowWildcardSubdomains();
+         .AllowCredentials()
+         .SetIsOriginAllowedToAllowWildcardSubdomains();
     });
 });
 
