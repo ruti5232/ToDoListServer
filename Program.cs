@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<ToDoDbContext>();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-app.UseCors("AddPolicy");
+app.UseCors("OpenPolicy");
 // if(app.Environment.IsDevelopment())
 // {
     app.UseSwagger(options =>
