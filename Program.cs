@@ -8,10 +8,10 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name:MyAllowSpecificOrigins, 
+    options.AddPolicy(name: MyAllowSpecificOrigins,
         builder =>
     {
-        builder.WithOrigins("https://todolistclient-d7ck.onrender.com","https://todolistserver-t59d.onrender.com/index.html","http://localhost:3000")
+        builder.WithOrigins("https://todolistclient-d7ck.onrender.com", "https://todolistserver-t59d.onrender.com/items", "http://localhost:3000")
         .AllowAnyMethod()
         .AllowAnyHeader()
          .AllowCredentials()
@@ -22,18 +22,18 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<ToDoDbContext>();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-app.UseRouting(); 
+app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
 // if(app.Environment.IsDevelopment())
 // {
-    app.UseSwagger(options =>
+app.UseSwagger(options =>
 {
-    options.SerializeAsV2 = true;
+options.SerializeAsV2 = true;
 });
-    app.UseSwaggerUI(options =>
+app.UseSwaggerUI(options =>
 {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-    options.RoutePrefix = string.Empty;
+options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+options.RoutePrefix = string.Empty;
 });
 // }
 
@@ -41,14 +41,14 @@ app.UseCors(MyAllowSpecificOrigins);
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/items", async (ToDoDbContext db) =>
       await db.Items.ToListAsync());
-app.MapPost("/items", async (ToDoDbContext db,[FromBody]ItemModel item) =>
+app.MapPost("/items", async (ToDoDbContext db, [FromBody] ItemModel item) =>
 {
-    var myItem=new Item{Name=item.Name,IsComplete=item.IsComplete};
+    var myItem = new Item { Name = item.Name, IsComplete = item.IsComplete };
     db.Items.Add(myItem);
     await db.SaveChangesAsync();
     return item;
 });
-app.MapPut("/items", async (ToDoDbContext db,[FromBody]Item item) =>
+app.MapPut("/items", async (ToDoDbContext db, [FromBody] Item item) =>
 {
     var myItem = await db.Items.FindAsync(item.Id);
     if (myItem is null)
