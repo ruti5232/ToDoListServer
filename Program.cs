@@ -14,34 +14,15 @@ builder.Services.AddCors(options =>
         builder.WithOrigins("https://todolistclient-d7ck.onrender.com","https://todolistserver-t59d.onrender.com/index.html")
         .AllowAnyMethod()
         .AllowAnyHeader()
+         .AllowCredentials()
         .SetIsOriginAllowedToAllowWildcardSubdomains();
     });
 });
 
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("OpenPolicy",
-//                       policy =>
-//                       {
-//                           policy.WithOrigins("https://todolistserver-t59d.onrender.com/index.html")
-//                                 .AllowAnyHeader()
-//                                 .AllowAnyMethod()
-//                                 .AllowCredentials(); // Added AllowCredentials
-//                       });
-// });
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("AddPolicy",
-//                           policy =>
-//                           {
-//                               policy.AllowAnyOrigin()
-//                                                   .AllowAnyHeader()
-//                                                   .AllowAnyMethod();
-//                           });
-// });
 builder.Services.AddDbContext<ToDoDbContext>();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
+app.UseRouting(); 
 app.UseCors(MyAllowSpecificOrigins);
 // if(app.Environment.IsDevelopment())
 // {
