@@ -6,14 +6,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AddPolicy",
-                          policy =>
-                          {
-                              policy.AllowAnyOrigin()
-                                                  .AllowAnyHeader()
-                                                  .AllowAnyMethod();
-                          });
+    options.AddPolicy("OpenPolicy",
+                      policy =>
+                      {
+                          policy.WithOrigins("https://todolistserver-t59d.onrender.com/index.html")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowCredentials(); // Added AllowCredentials
+                      });
 });
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("AddPolicy",
+//                           policy =>
+//                           {
+//                               policy.AllowAnyOrigin()
+//                                                   .AllowAnyHeader()
+//                                                   .AllowAnyMethod();
+//                           });
+// });
 builder.Services.AddDbContext<ToDoDbContext>();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
