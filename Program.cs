@@ -11,7 +11,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name:MyAllowSpecificOrigins, 
         builder =>
     {
-        builder.WithOrigins("https://todolistserver-t59d.onrender.com/index.html")
+        builder.WithOrigins("https://todolistclient-d7ck.onrender.com")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .SetIsOriginAllowedToAllowWildcardSubdomains();
